@@ -1,13 +1,12 @@
-
 class GroceryItem {
   String id;
   String name;
-  String category; // Produce, Dairy, Snacks... 
+  String category; // Produce, Dairy, etc.
   int quantity;
   String notes;
   bool purchased;
   bool needToday;
-  double? unitPrice; //  used for estimate
+  double? unitPrice;
 
   GroceryItem({
     required this.id,

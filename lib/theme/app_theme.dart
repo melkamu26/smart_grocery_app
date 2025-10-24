@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  static const Color seed = Color(0xFF2BB673); // Fresh green accent
+  static const Color seed = Color(0xFF2BB673); // fresh green
 
-  // LIGHT THEME
   static ThemeData light() {
     final base = ThemeData(
       colorScheme: ColorScheme.fromSeed(
@@ -19,16 +18,17 @@ class AppTheme {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
       ),
-      floatingActionButtonTheme: base.floatingActionButtonTheme.copyWith(
-        backgroundColor: seed,
-        foregroundColor: Colors.white,
-      ),
       inputDecorationTheme: base.inputDecorationTheme.copyWith(
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
         ),
+      ),
+      floatingActionButtonTheme: base.floatingActionButtonTheme.copyWith(
+        backgroundColor: seed,
+        foregroundColor: Colors.white,
+        elevation: 2,
       ),
       listTileTheme: const ListTileThemeData(
         contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
@@ -40,7 +40,6 @@ class AppTheme {
     );
   }
 
-  // DARK THEME
   static ThemeData dark() {
     final base = ThemeData(
       colorScheme: ColorScheme.fromSeed(
@@ -56,16 +55,17 @@ class AppTheme {
         backgroundColor: const Color(0xFF1A231E),
         foregroundColor: Colors.white,
       ),
-      floatingActionButtonTheme: base.floatingActionButtonTheme.copyWith(
-        backgroundColor: seed,
-        foregroundColor: Colors.white,
-      ),
       inputDecorationTheme: base.inputDecorationTheme.copyWith(
         filled: true,
         fillColor: const Color(0xFF1E2722),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
         ),
+      ),
+      floatingActionButtonTheme: base.floatingActionButtonTheme.copyWith(
+        backgroundColor: seed,
+        foregroundColor: Colors.white,
+        elevation: 2,
       ),
       listTileTheme: const ListTileThemeData(
         contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
@@ -76,4 +76,6 @@ class AppTheme {
       ),
     );
   }
+
+  static Color priorityColor(BuildContext _) => const Color(0xFFFFC857); // “Need Today”
 }

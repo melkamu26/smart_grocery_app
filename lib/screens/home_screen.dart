@@ -1,12 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../state/app_state.dart';
+import '../state/theme_provider.dart';
 import '../widgets/item_tile.dart';
 import 'add_edit_screen.dart';
 import 'checklist_screen.dart';
 import 'weekly_generator_screen.dart';
-import '../state/theme_provider.dart'; 
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -14,12 +13,26 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final app = context.watch<AppState>();
-    final items = app.items;
+    final items = app.filteredItems; // <-- use filtered list
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Smart Grocery List'),
         actions: [
+          IconButton(
+            tooltip: context.watch<ThemeProvider>().isDarkMode
+                ? 'Switch to Light'
+                : 'Switch to Dark',
+            icon: Icon(
+              context.watch<ThemeProvider>().isDarkMode
+                  ? Icons.light_mode
+                  : Icons.dark_mode,
+            ),
+            onPressed: () {
+              final themeProvider = context.read<ThemeProvider>();
+              themeProvider.toggleTheme(!themeProvider.isDarkMode);
+            },
+          ),
           IconButton(
             tooltip: app.sortByName ? 'Sort by Category' : 'Sort by Name',
             onPressed: app.toggleSort,
@@ -32,21 +45,10 @@ class HomeScreen extends StatelessWidget {
           ),
           IconButton(
             tooltip: 'Weekly Generator',
-            onPressed: () => Navigator.pushNamed(context, WeeklyGeneratorScreen.route),
+            onPressed: () =>
+                Navigator.pushNamed(context, WeeklyGeneratorScreen.route),
             icon: const Icon(Icons.calendar_month),
           ),
-          IconButton(
-  tooltip: 'Toggle Theme',
-  icon: Icon(
-    context.watch<ThemeProvider>().isDarkMode
-        ? Icons.light_mode
-        : Icons.dark_mode,
-  ),
-  onPressed: () {
-    final themeProvider = context.read<ThemeProvider>();
-    themeProvider.toggleTheme(!themeProvider.isDarkMode);
-  },
-),
         ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(56),
@@ -77,7 +79,9 @@ class HomeScreen extends StatelessWidget {
                   hint: const Text('Filter: All'),
                   items: [
                     const DropdownMenuItem(value: null, child: Text('All')),
-                    ...app.categories.map((c) => DropdownMenuItem(value: c, child: Text(c)))
+                    ...app.categories.map(
+                      (c) => DropdownMenuItem(value: c, child: Text(c)),
+                    )
                   ],
                   onChanged: (v) => app.setFilterCategory(v),
                 ),
@@ -89,11 +93,13 @@ class HomeScreen extends StatelessWidget {
           const Divider(height: 1),
           Expanded(
             child: items.isEmpty
-              ? const Center(child: Text('Your list is empty. Tap + to add items.'))
-              : ListView.builder(
-                  itemCount: items.length,
-                  itemBuilder: (_, i) => ItemTile(item: items[i]),
-                ),
+                ? const Center(
+                    child: Text('Your list is empty. Tap + to add items.'),
+                  )
+                : ListView.builder(
+                    itemCount: items.length,
+                    itemBuilder: (_, i) => ItemTile(item: items[i]),
+                  ),
           ),
         ],
       ),

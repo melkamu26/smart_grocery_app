@@ -23,13 +23,13 @@ class SmartGroceryApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ],
       child: Consumer<ThemeProvider>(
-        builder: (context, themeProvider, _) {
+        builder: (context, theme, _) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Smart Grocery List',
             theme: AppTheme.light(),
             darkTheme: AppTheme.dark(),
-            themeMode: themeProvider.themeMode,
+            themeMode: theme.themeMode,
             routes: {
               '/': (_) => const HomeScreen(),
               AddEditScreen.route: (_) => const AddEditScreen(),

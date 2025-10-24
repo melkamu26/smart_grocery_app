@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../state/app_state.dart';
@@ -17,7 +16,7 @@ class WeeklyGeneratorScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Generate a recurring weekly list based on a simple template.'),
+            const Text('Generate a recurring weekly list from a template.'),
             const SizedBox(height: 12),
             FilledButton.icon(
               onPressed: () => context.read<AppState>().generateWeekly(),
@@ -25,7 +24,7 @@ class WeeklyGeneratorScreen extends StatelessWidget {
               label: const Text('Generate List'),
             ),
             const SizedBox(height: 16),
-            const Text('Preview (from current list):'),
+            const Text('Preview (current list):'),
             const SizedBox(height: 8),
             Expanded(
               child: ListView.builder(
@@ -41,8 +40,10 @@ class WeeklyGeneratorScreen extends StatelessWidget {
             ),
             Align(
               alignment: Alignment.centerRight,
-              child: Text('Estimated Total: \$${app.estimatedTotal().toStringAsFixed(2)}'),
-            )
+              child: Text(
+                'Estimated Total: \$${app.estimatedTotal().toStringAsFixed(2)}',
+              ),
+            ),
           ],
         ),
       ),

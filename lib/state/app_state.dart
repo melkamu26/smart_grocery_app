@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:uuid/uuid.dart';
 import '../models/grocery_item.dart';
@@ -14,16 +13,22 @@ class AppState extends ChangeNotifier {
   String? _filterCategory;
   bool _sortByName = true;
 
-  List<GroceryItem> get items {
+ 
+  List<GroceryItem> get items => List.unmodifiable(_items);
+
+
+  List<GroceryItem> get filteredItems {
     Iterable<GroceryItem> list = _items;
     if (_search.isNotEmpty) {
-      list = list.where((e) => e.name.toLowerCase().contains(_search.toLowerCase()));
+      list = list.where(
+        (e) => e.name.toLowerCase().contains(_search.toLowerCase()),
+      );
     }
     if (_filterCategory != null) {
       list = list.where((e) => e.category == _filterCategory);
     }
     final out = list.toList();
-    out.sort((a,b){
+    out.sort((a, b) {
       if (_sortByName) {
         return a.name.toLowerCase().compareTo(b.name.toLowerCase());
       }
@@ -40,6 +45,7 @@ class AppState extends ChangeNotifier {
 
   void setSearch(String v) { _search = v; notifyListeners(); }
   void setFilterCategory(String? v) { _filterCategory = v; notifyListeners(); }
+  void clearFilters() { _search = ''; _filterCategory = null; notifyListeners(); }
   void toggleSort() { _sortByName = !_sortByName; notifyListeners(); }
 
   void addItem({
@@ -86,22 +92,21 @@ class AppState extends ChangeNotifier {
   double estimatedTotal() {
     return _items.fold(0.0, (sum, e) {
       if (e.unitPrice != null) {
-        return sum + (e.unitPrice! * (e.quantity));
+        return sum + (e.unitPrice! * e.quantity);
       }
       return sum;
     });
   }
 
-  // Demo weekly generator
   void generateWeekly() {
     final template = [
-      {'name':'Milk','cat':'Dairy'},
-      {'name':'Eggs','cat':'Dairy'},
-      {'name':'Bread','cat':'Bakery'},
-      {'name':'Apples','cat':'Produce'},
+      {'name': 'Milk', 'cat': 'Dairy'},
+      {'name': 'Eggs', 'cat': 'Dairy'},
+      {'name': 'Bread', 'cat': 'Bakery'},
+      {'name': 'Apples', 'cat': 'Produce'},
     ];
     for (final t in template) {
-      addItem(name: t['name']!, category: t['cat']!);
+      addItem(name: t['name']!, category: t['cat']!); 
     }
   }
 }

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/grocery_item.dart';
@@ -52,7 +51,8 @@ class _AddEditScreenState extends State<AddEditScreen> {
             TextFormField(
               initialValue: _name,
               decoration: const InputDecoration(labelText: 'Name *'),
-              validator: (v) => (v==null || v.trim().isEmpty) ? 'Name required' : null,
+              validator: (v) =>
+                  (v == null || v.trim().isEmpty) ? 'Name required' : null,
               onSaved: (v) => _name = v!.trim(),
             ),
             const SizedBox(height: 8),
@@ -62,7 +62,8 @@ class _AddEditScreenState extends State<AddEditScreen> {
                   child: DropdownButtonFormField<String>(
                     value: _category,
                     items: app.categories
-                        .map((c) => DropdownMenuItem(value: c, child: Text(c)))
+                        .map((c) =>
+                            DropdownMenuItem(value: c, child: Text(c)))
                         .toList(),
                     onChanged: (v) => setState(() => _category = v!),
                     decoration: const InputDecoration(labelText: 'Category'),
@@ -74,7 +75,8 @@ class _AddEditScreenState extends State<AddEditScreen> {
                     initialValue: _quantity.toString(),
                     decoration: const InputDecoration(labelText: 'Qty'),
                     keyboardType: TextInputType.number,
-                    onSaved: (v) => _quantity = int.tryParse(v ?? '1') ?? 1,
+                    onSaved: (v) =>
+                        _quantity = int.tryParse(v ?? '1') ?? 1,
                   ),
                 ),
               ],
@@ -88,14 +90,17 @@ class _AddEditScreenState extends State<AddEditScreen> {
             const SizedBox(height: 8),
             TextFormField(
               initialValue: _unitPrice?.toString() ?? '',
-              decoration: const InputDecoration(labelText: 'Unit Price (optional)'),
-              keyboardType: const TextInputType.numberWithOptions(decimal: true),
-              onSaved: (v) => _unitPrice = (v==null || v.isEmpty) ? null : double.tryParse(v),
+              decoration:
+                  const InputDecoration(labelText: 'Unit Price (optional)'),
+              keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
+              onSaved: (v) =>
+                  _unitPrice = (v == null || v.isEmpty) ? null : double.tryParse(v),
             ),
             const SizedBox(height: 8),
             SwitchListTile(
               value: _needToday,
-              onChanged: (v) => setState(()=> _needToday = v),
+              onChanged: (v) => setState(() => _needToday = v),
               title: const Text('Need Today (priority)'),
             ),
             const SizedBox(height: 16),
@@ -127,7 +132,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
               },
               icon: const Icon(Icons.save),
               label: Text(isEditing ? 'Save Changes' : 'Save Item'),
-            )
+            ),
           ],
         ),
       ),
