@@ -36,7 +36,7 @@ class ChecklistScreen extends StatelessWidget {
                   title: Text(it.name),
                   subtitle: Text('${it.category} • qty ${it.quantity}'),
                   value: it.purchased,
-                  onChanged: (_) => app.togglePurchased(it.id),
+                  onChanged: (_) async => await context.read<AppState>().togglePurchased(it.id),
                 );
               },
             ),

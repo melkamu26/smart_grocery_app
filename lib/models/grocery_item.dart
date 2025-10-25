@@ -1,7 +1,7 @@
 class GroceryItem {
   String id;
   String name;
-  String category; // Produce, Dairy, etc.
+  String category;
   int quantity;
   String notes;
   bool purchased;
@@ -40,4 +40,26 @@ class GroceryItem {
       unitPrice: unitPrice ?? this.unitPrice,
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'name': name,
+    'category': category,
+    'quantity': quantity,
+    'notes': notes,
+    'purchased': purchased,
+    'needToday': needToday,
+    'unitPrice': unitPrice,
+  };
+
+  factory GroceryItem.fromJson(Map<String, dynamic> j) => GroceryItem(
+    id: j['id'] as String,
+    name: j['name'] as String,
+    category: j['category'] as String,
+    quantity: (j['quantity'] ?? 1) as int,
+    notes: (j['notes'] ?? '') as String,
+    purchased: (j['purchased'] ?? false) as bool,
+    needToday: (j['needToday'] ?? false) as bool,
+    unitPrice: (j['unitPrice'] as num?)?.toDouble(),
+  );
 }

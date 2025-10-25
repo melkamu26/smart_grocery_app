@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final app = context.watch<AppState>();
-    final items = app.filteredItems; // <-- use filtered list
+    final items = app.filteredItems; // filtered list
 
     return Scaffold(
       appBar: AppBar(
@@ -49,6 +49,11 @@ class HomeScreen extends StatelessWidget {
                 Navigator.pushNamed(context, WeeklyGeneratorScreen.route),
             icon: const Icon(Icons.calendar_month),
           ),
+          IconButton(
+  tooltip: 'Reset filters',
+  icon: const Icon(Icons.filter_alt_off),
+  onPressed: () => app.clearFilters(),
+),
         ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(56),

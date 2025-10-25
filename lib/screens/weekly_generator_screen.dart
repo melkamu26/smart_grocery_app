@@ -9,6 +9,7 @@ class WeeklyGeneratorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final app = context.watch<AppState>();
+    final list = context.watch<AppState>().items;
     return Scaffold(
       appBar: AppBar(title: const Text('Weekly List Generator')),
       body: Padding(
@@ -23,6 +24,7 @@ class WeeklyGeneratorScreen extends StatelessWidget {
               icon: const Icon(Icons.bolt),
               label: const Text('Generate List'),
             ),
+            
             const SizedBox(height: 16),
             const Text('Preview (current list):'),
             const SizedBox(height: 8),

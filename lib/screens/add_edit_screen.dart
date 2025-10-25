@@ -104,34 +104,34 @@ class _AddEditScreenState extends State<AddEditScreen> {
               title: const Text('Need Today (priority)'),
             ),
             const SizedBox(height: 16),
-            FilledButton.icon(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  _formKey.currentState!.save();
-                  if (isEditing) {
-                    app.updateItem(editing!.copyWith(
-                      name: _name,
-                      category: _category,
-                      quantity: _quantity,
-                      notes: _notes,
-                      needToday: _needToday,
-                      unitPrice: _unitPrice,
-                    ));
-                  } else {
-                    app.addItem(
-                      name: _name,
-                      category: _category,
-                      quantity: _quantity,
-                      notes: _notes,
-                      needToday: _needToday,
-                      unitPrice: _unitPrice,
-                    );
-                  }
-                  Navigator.pop(context);
-                }
-              },
-              icon: const Icon(Icons.save),
-              label: Text(isEditing ? 'Save Changes' : 'Save Item'),
+ FilledButton.icon(
+  onPressed: () async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      if (isEditing) {
+        await app.updateItem(editing!.copyWith(
+          name: _name,
+          category: _category,
+          quantity: _quantity,
+          notes: _notes,
+          needToday: _needToday,
+          unitPrice: _unitPrice,
+        ));
+      } else {
+        await app.addItem(
+          name: _name,
+          category: _category,
+          quantity: _quantity,
+          notes: _notes,
+          needToday: _needToday,
+          unitPrice: _unitPrice,
+        );
+      }
+      if (mounted) Navigator.pop(context);
+    }
+  },
+  icon: const Icon(Icons.save),
+  label: Text(isEditing ? 'Save Changes' : 'Save Item'),
             ),
           ],
         ),
