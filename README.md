@@ -21,5 +21,5 @@ flutter run
 - Persist with SQLite or shared_preferences
 - Weekly generator & (optional) price estimate
 
-## Youtube Link
+## Youtube Presentation Link
 - https://www.youtube.com/watch?v=YSduMF8dkRc
