@@ -20,3 +20,6 @@ flutter run
 ## Next (Milestone 2)
 - Persist with SQLite or shared_preferences
 - Weekly generator & (optional) price estimate
+
+## Youtube Link
+- https://www.youtube.com/watch?v=YSduMF8dkRc
